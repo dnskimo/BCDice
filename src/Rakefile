@@ -48,3 +48,20 @@ task :test do
     raise "テスト失敗: #{failures.join(', ')}"
   end
 end
+
+desc 'ダイスロールを実行する'
+task :roll, [:message, :game_type] do |t, args|
+  $LOAD_PATH.push('.')
+  require 'cgiDiceBot'
+
+  message = args[:message]
+  gameType = args[:game_type]
+
+  bot = CgiDiceBot.new
+  bot.setTest
+
+  result, randResults = bot.roll(message, gameType)
+
+  puts(result)
+end
+
